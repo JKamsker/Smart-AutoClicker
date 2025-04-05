@@ -35,10 +35,6 @@ void TemplateMatchingResult::updateResults(ScalableRoi* detectionArea, cv::Mat* 
     centerY = area.getFullSize().y + ((int) (area.getFullSize().height / 2));
 }
 
-void TemplateMatchingResult::markResultAsDetected() {
-    detected = true;
-}
-
 void TemplateMatchingResult::invalidateCurrentResult(cv::Mat *matchingResults, const cv::Mat* condition) const {
     cv::rectangle(
             *matchingResults,
@@ -48,9 +44,7 @@ void TemplateMatchingResult::invalidateCurrentResult(cv::Mat *matchingResults, c
 }
 
 void TemplateMatchingResult::reset() {
-    detected = false;
-    centerX = 0;
-    centerY = 0;
+    DetectionResult::reset();
     minVal = 0;
     maxVal = 0;
     minLoc.x = 0;
@@ -60,22 +54,3 @@ void TemplateMatchingResult::reset() {
     area.clear();
 }
 
-bool TemplateMatchingResult::isDetected() const {
-    return detected;
-}
-
-double TemplateMatchingResult::getResultConfidence() const {
-    return maxVal;
-}
-
-ScalableRoi TemplateMatchingResult::getResultArea() const {
-    return area;
-}
-
-int TemplateMatchingResult::getResultAreaCenterX() const {
-    return centerX;
-}
-
-int TemplateMatchingResult::getResultAreaCenterY() const {
-    return centerY;
-}
